@@ -30,6 +30,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Iterator;
+import java.util.Set;
 
 import it.geosolutions.geoserver.rest.encoder.authorityurl.AuthorityURLInfo;
 import it.geosolutions.geoserver.rest.encoder.authorityurl.GSAuthorityURLInfoEncoder;
@@ -37,6 +39,8 @@ import it.geosolutions.geoserver.rest.encoder.identifier.GSIdentifierInfoEncoder
 import it.geosolutions.geoserver.rest.encoder.identifier.IdentifierInfo;
 import it.geosolutions.geoserver.rest.encoder.utils.NestedElementEncoder;
 import it.geosolutions.geoserver.rest.encoder.utils.XmlElement;
+
+import org.checkerframework.checker.determinism.qual.*;
 
 /**
  * Layer encoder for Geoserver = 2.1
@@ -100,13 +104,13 @@ public class GSLayerEncoder21 extends GSLayerEncoder {
 	 * 
 	 * @param authorityURLInfo
 	 */
-	public void addAuthorityURL(GSAuthorityURLInfoEncoder authorityURLInfo){	
+	public void addAuthorityURL(GSAuthorityURLInfoEncoder authorityURLInfo){
 		if(authorityURLList == null){
 			authorityURLList = new HashMap<String,String>();
 		}
 		authorityURLList.put(authorityURLInfo.getHref(), authorityURLInfo.getName());
 		String jsonStr = "";
-		for(Entry<String, String> entry : authorityURLList.entrySet()){
+		for(@Det Entry<@Det String, @Det String> entry : authorityURLList.entrySet()){
 			jsonStr += "{"+
 					"\""+AuthorityURLInfo.name.name()+"\":\""+entry.getValue()+"\","+
 					"\""+AuthorityURLInfo.href.name()+"\":\""+entry.getKey()+"\""+
